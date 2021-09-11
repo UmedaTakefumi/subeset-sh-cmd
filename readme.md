@@ -1,4 +1,3 @@
 # subeset-sh-cmd
 
-a
 
