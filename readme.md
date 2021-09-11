@@ -1,3 +1,0 @@
-# subeset-sh-cmd
-
-test
