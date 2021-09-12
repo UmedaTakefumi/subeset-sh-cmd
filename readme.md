@@ -1,5 +1,2 @@
 # subset-sh-cmd
 
-
-
-test
