@@ -11,13 +11,67 @@
 
 OVERVIEW
 
-## レポジトリチェックスクリプト
+##
 
-check_dirname=$(pwd | awk -F/ '{ print $NF }')
-date=$(LANG=C date)
+function print_how_to_use () {
 
-echo -e "# -- $date --"
-echo -e "# check repository DIR:$check_dirname\n"
+  echo "  -c  --check-files"
+  echo "      簡易的にファイルをチェックしたのちにファイルの種類単位で集計し、画面に出力します"
 
-find . -type d -name .git -prune -o -type f -exec file {} \; | \
-awk -F: '{ print $2 }' | env LANG=c sort | uniq -c | env LANG=c sort -nr
+  echo "  -h  --help"
+  echo "      コマンドの使い方を画面に出力します。"
+}
+
+## コマンド実行時に出力されるヘッダー出力
+function print_header () {
+
+  check_dirname=$(pwd | awk -F/ '{ print $NF }')
+  date=$(LANG=C date)
+  
+  echo -e "# -- $date --"
+  echo -e "# check repository DIR:$check_dirname\n"
+}
+
+## 簡易的にファイルをチェックしたのちにファイルの種類単位で集計し、画面に出力します
+function check_files () {
+
+  find . -type d -name .git -prune -o -type f -exec file {} \; | \
+  awk -F: '{ print $2 }' | env LANG=c sort | uniq -c | env LANG=c sort -nr
+
+}
+
+## copy and paste
+## 
+## ref: https://qiita.com/b4b4r07/items/dcd6be0bb9c9185475bb
+for OPT in "$@"
+do
+  case $OPT in
+    -h | --help)
+        print_header
+        print_how_to_use
+        exit 1
+        ;;
+    -c | --check-files)
+        print_header
+        check_files
+        shift 1
+        ;;
+    -- | -)
+        shift 1
+        param+=( "$@" )
+        break
+        ;;
+    -*)
+        echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2
+        exit 1
+        ;;
+    *)
+        if [[ ! -z "$1" ]] && [[ ! "$1" =~ ^-+ ]]; then
+            #param=( ${param[@]} "$1" )
+            param+=( "$1" )
+            shift 1
+        fi
+        ;;
+  esac
+done
+
