@@ -19,6 +19,7 @@ function print_how_to_use () {
 
   echo "  -h  --help"
   echo "      コマンドの使い方を画面に出力します。"
+
 }
 
 ## コマンド実行時に出力されるヘッダー出力
@@ -29,6 +30,7 @@ function print_header () {
   
   echo -e "# -- $date --"
   echo -e "# check repository DIR:$check_dirname\n"
+
 }
 
 ## 簡易的にファイルをチェックしたのちにファイルの種類単位で集計し、画面に出力します
