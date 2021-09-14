@@ -11,8 +11,7 @@
 
 OVERVIEW
 
-##
-
+## コマンドの使い方を画面に出力します
 function print_how_to_use () {
 
   echo "  -c  --check-files"
