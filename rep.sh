@@ -48,7 +48,8 @@ function check_files () {
 function check_binary_files () {
 
   bin_exe=($(find . -type d -name .git -prune -o -type f -exec file {} \; \
-          | grep executable | grep -v text | awk -F: '{print $1}'))
+          | grep executable | grep -v text | grep -v ELF | grep -v Mach-O \
+          | awk -F: '{print $1}'))
 
   bin_macho=($(find . -type d -name .git -prune -o -type f -exec file {} \; \
             | grep Mach-O     | grep -v text | awk -F: '{print $1}'))
