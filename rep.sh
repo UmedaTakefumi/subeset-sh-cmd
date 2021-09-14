@@ -52,10 +52,10 @@ function check_binary_files () {
           | awk -F: '{print $1}'))
 
   bin_macho=($(find . -type d -name .git -prune -o -type f -exec file {} \; \
-            | grep Mach-O     | grep -v text | awk -F: '{print $1}'))
+            | grep Mach-O | grep -v text | awk -F: '{print $1}'))
 
   bin_elf=($(find . -type d -name .git -prune -o -type f -exec file {} \; \
-          | grep ELF        | grep -v text | awk -F: '{print $1}'))
+          | grep ELF | grep -v text | awk -F: '{print $1}'))
 
   if [ ${#bin_exe[@]} == 0 ]; then
     echo -e "## Exe\n"
