@@ -44,7 +44,7 @@ function check_files () {
 
 }
 
-## バイナリファイルを存在するか簡易的に集計確認し、画面に出力します
+## バイナリファイル(executable, Mach-O, ELF)が存在するか簡易的に集計し画面に出力します
 function check_binary_files () {
 
   bin_exe=($(find . -type d -name .git -prune -o -type f -exec file {} \;   | grep executable | grep -v text | awk -F: '{print $1}'))
