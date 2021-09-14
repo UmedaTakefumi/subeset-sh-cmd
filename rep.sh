@@ -135,3 +135,8 @@ do
   esac
 done
 
+if [ -z "$param" ]; then
+    echo "$PROGNAME: too few arguments" 1>&2
+    echo "Try '$PROGNAME --help' for more information." 1>&2
+    exit 1
+fi
