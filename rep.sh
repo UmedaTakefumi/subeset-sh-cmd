@@ -47,9 +47,14 @@ function check_files () {
 ## バイナリファイル(executable, Mach-O, ELF)が存在するか簡易的に集計し画面に出力します
 function check_binary_files () {
 
-  bin_exe=($(find . -type d -name .git -prune -o -type f -exec file {} \;   | grep executable | grep -v text | awk -F: '{print $1}'))
-  bin_macho=($(find . -type d -name .git -prune -o -type f -exec file {} \; | grep Mach-O     | grep -v text | awk -F: '{print $1}'))
-  bin_elf=($(find . -type d -name .git -prune -o -type f -exec file {} \;   | grep ELF        | grep -v text | awk -F: '{print $1}'))
+  bin_exe=($(find . -type d -name .git -prune -o -type f -exec file {} \; \
+          | grep executable | grep -v text | awk -F: '{print $1}'))
+
+  bin_macho=($(find . -type d -name .git -prune -o -type f -exec file {} \; \
+            | grep Mach-O     | grep -v text | awk -F: '{print $1}'))
+
+  bin_elf=($(find . -type d -name .git -prune -o -type f -exec file {} \; \
+          | grep ELF        | grep -v text | awk -F: '{print $1}'))
 
   if [ ${#bin_exe[@]} == 0 ]; then
     echo -e "## Exe\n"
