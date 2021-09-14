@@ -1,0 +1,8 @@
+# build text
+
+```
+gcc -dynamiclib -o libshared-mac.dylib shared-lib-mac.c
+gcc -o main main.c libshared-mac.dylib
+```
+
+ref: https://qiita.com/edo_m18/items/b9765ff3313d5a13f82f
