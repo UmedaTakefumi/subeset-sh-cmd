@@ -14,11 +14,14 @@ OVERVIEW
 ## コマンドの使い方を画面に出力します
 function print_how_to_use () {
 
-  echo "  -c  --check-files"
-  echo "      簡易的にファイルをチェックしたのちにファイルの種類単位で集計し、画面に出力します"
+  echo    "  -b  --binary-files"
+  echo -e "      バイナリファイルを存在するか簡易的に集計確認し、画面に出力します\n"
 
-  echo "  -h  --help"
-  echo "      コマンドの使い方を画面に出力します。"
+  echo    "  -c  --check-files"
+  echo -e "      簡易的にファイルをチェックしたのちにファイルの種類単位で集計し、画面に出力します\n"
+
+  echo    "  -h  --help"
+  echo -e "      コマンドの使い方を画面に出力します。\n"
 
 }
 
@@ -41,6 +44,51 @@ function check_files () {
 
 }
 
+## バイナリファイルを存在するか簡易的に集計確認し、画面に出力します
+function check_binary_files () {
+
+  bin_exe=($(find . -type d -name .git -prune -o -type f -exec file {} \;   | grep executable | grep -v text | awk -F: '{print $1}'))
+  bin_macho=($(find . -type d -name .git -prune -o -type f -exec file {} \; | grep Mach-O     | grep -v text | awk -F: '{print $1}'))
+  bin_elf=($(find . -type d -name .git -prune -o -type f -exec file {} \;   | grep ELF        | grep -v text | awk -F: '{print $1}'))
+
+  if [ ${#bin_exe[@]} == 0 ]; then
+    echo -e "## Exe\n"
+    echo -e "[good] count: ${#bin_exe[@]}\n"
+  else
+    echo -e "## Exe\n"
+    echo -e "[need to confirm] count: ${#bin_exe[@]}\n"
+    for filepath in ${bin_exe[@]}; do
+      echo -e "  $filepath"
+    done
+    echo -e "\n" 
+  fi
+
+  if [ ${#bin_macho[@]} == 0 ]; then
+    echo -e "## Mach-O\n"
+    echo -e "[good] count: ${#bin_macho[@]}\n"
+  else
+    echo -e "## Mach-O\n"
+    echo -e "[need to confirm] count: ${#bin_macho[@]}\n"
+    for filepath in ${bin_macho[@]}; do
+      echo -e "  $filepath"
+    done
+    echo -e "\n" 
+  fi
+
+  if [ ${#bin_elf[@]} == 0 ]; then
+    echo -e "## ELF\n"
+    echo -e "[good] count: ${#bin_elf[@]}\n"
+  else
+    echo -e "## ELF\n"
+    echo -e "[need to confirm] count: ${#bin_elf[@]}\n"
+    for filepath in ${bin_elf[@]}; do
+      echo -e "  $filepath"
+    done
+    echo -e "\n" 
+  fi
+
+}
+
 ## copy and paste
 ## 
 ## ref: https://qiita.com/b4b4r07/items/dcd6be0bb9c9185475bb
@@ -51,6 +99,11 @@ do
         print_header
         print_how_to_use
         exit 1
+        ;;
+    -b | --binary-files)
+        print_header
+        check_binary_files
+        shift 1
         ;;
     -c | --check-files)
         print_header
