@@ -1,7 +1,8 @@
 # build text
 
 ```
-% GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -trimpath -o hello.exe hello.go 
-% GOOS=linux   GOARCH=amd64 go build -ldflags="-s -w" -trimpath -o hello.elf hello.go
-% GOOS=darwin  GOARCH=amd64 go build -ldflags="-s -w" -trimpath -o hello     hello.go 
+GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -trimpath -o hello.exe hello.go 
+GOOS=linux   GOARCH=amd64 go build -ldflags="-s -w" -trimpath -o hello.elf hello.go
+GOOS=linux   GOARCH=amd64 go build -ldflags=-buildid="-s -w" -trimpath -o hello.elf hello.go
+GOOS=darwin  GOARCH=amd64 go build -ldflags="-s -w" -trimpath -o hello     hello.go 
 ```
