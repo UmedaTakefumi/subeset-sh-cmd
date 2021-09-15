@@ -1,8 +1,21 @@
 #!/bin/bash
 
-<<=OVERVIEW
+<<OVERVIEW
+
+
 
 OVERVIEW
 
+function softdecoy () {
+
+  echo ""
+
+}
+
+function harddecoy () {
+
+  echo ""
+
+}
 
 
