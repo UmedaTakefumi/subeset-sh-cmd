@@ -12,7 +12,7 @@
 * 以前Qiitaに記載した記事をスクリプト化しました。
 * Qiita記事URL: https://qiita.com/UmedaTakefumi/items/d27edbef7a5475157a98
 
-OVERVIVE
+OVERVIEW
 
 ## networksetup -listallhardwareports | grep Device: | awk '{ print $2 }'
 
