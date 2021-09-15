@@ -20,7 +20,9 @@ function print_how_to_use () {
 
 }
 
-## networksetup -listallhardwareports | grep Device: | awk '{ print $2 }'
+## mac: networksetup -listallhardwareports
+## linux: ip addr show
+
 
 ## キャプチャ
 function capture () {
