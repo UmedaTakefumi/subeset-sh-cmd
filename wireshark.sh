@@ -22,11 +22,26 @@ function print_how_to_use () {
 
 ## networksetup -listallhardwareports | grep Device: | awk '{ print $2 }'
 
-brew install wireshark
-mkdir -p ~/Temp/pkt
-cd ~/Temp/pkt
+## キャプチャ
+function capture () {
 
-tshark -i en0 -w testcap_$(date +%Y-%m-%d_%H-%M-%S).pcap
+  INTERFACE=$1
+  SNAPLEN=$2
+  ROTATE=$3
+
+  if [ ! -d ~/Temp/pkty ]; then
+    mkdir -p ~/Temp/pkty
+  fi
+
+  SNAPLEN=0
+  ROTATE=3600
+
+  cd ~/Temp/pkty
+
+  #sudo tshark -i en0 -b duration:3600 -w testcap_$(date +%Y-%m-%d_%H-%M-%S).pcap
+  sudo tshark -i $INTERFACE -s $SNAPLEN -b duration:$ROTATE -w testcap_$(date +%Y-%m-%d_%H-%M-%S).pcap
+
+}
 
 ## copy and paste
 ## 
