@@ -23,17 +23,6 @@ function print_how_to_use () {
 ## mac: networksetup -listallhardwareports
 ## linux: ip addr show
 
-## 設定ファイル読み込み
-function configloader () {
-
-  if [ -f ./~.wireshark.conf ]; then
-    echo ""
-  else
-    echo ""
-  fi
-
-}
-
 ## キャプチャ
 function capture () {
 
