@@ -65,6 +65,10 @@ do
         print_how_to_use
         exit 1
         ;;
+    -c | --cap)
+        capture
+        exit 1
+        ;;
     -- | -)
         shift 1
         param+=( "$@" )
