@@ -16,7 +16,14 @@ OVERVIEW
 
 function print_how_to_use () {
 
-  echo "未定"
+  echo    "  -c  --cap"
+  echo -e "      tharkを利用してキャプチャします\n"
+
+  echo    "  -l  --list-if"
+  echo -e "      コンピュータに接続されているネットワークインタフェースを一覧表示します\n"
+
+  echo    "  -h  --help"
+  echo -e "      コマンドの使い方を画面に出力します。\n"
 
 }
 
