@@ -20,8 +20,19 @@ function print_how_to_use () {
 
 }
 
-## mac: networksetup -listallhardwareports
-## linux: ip addr show
+## ネットワークインターフェース一覧
+function show_netif() {
+
+ if [ "$(uname)" == 'Darwin' ]; then
+   networksetup -listallhardwareports
+ elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+   ip addr show
+ else
+   echo "Your platform ($(uname -a)) is not supported."
+   exit 1
+ fi
+
+}
 
 ## キャプチャ
 function capture () {
@@ -56,6 +67,10 @@ do
         ;;
     -c | --cap)
         capture
+        exit 1
+        ;;
+    -l | --list-if)
+        show_netif
         exit 1
         ;;
     -- | -)
