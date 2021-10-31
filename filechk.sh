@@ -38,7 +38,7 @@ function print_header () {
 
 
 ## 調査対象のためのディレクトリ移動
-fuction cd_dir_view () {
+function cd_dir_view () {
 
   cd $DIR_PATH
 
