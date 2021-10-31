@@ -36,8 +36,26 @@ function print_header () {
 
 }
 
+
+## 調査対象のためのディレクトリ移動
+fuction cd_dir_view () {
+
+  cd $DIR_PATH
+
+  echo "--------------------------------------------------------------------------"
+  echo $DIR_PATH
+  echo "--------------------------------------------------------------------------"
+  pwd
+  echo "--------------------------------------------------------------------------"
+  ls -lasF $DIR_PATH
+  echo "--------------------------------------------------------------------------"
+
+}
+
 ## 簡易的にファイルをチェックしたのちにファイルの種類単位で集計し、画面に出力します
 function check_files () {
+
+  cd_dir_view
 
   find . -type d -name .git -prune -o -type f -exec file {} \; | \
   awk -F: '{ print $2 }' | env LANG=c sort | uniq -c | env LANG=c sort -nr
@@ -46,6 +64,8 @@ function check_files () {
 
 ## バイナリファイル(executable, Mach-O, ELF)が存在するか簡易的に集計し画面に出力します
 function check_binary_files () {
+
+  cd_dir_view
 
   bin_exe=($(find . -type d -name .git -prune -o -type f -exec file {} \; \
           | grep executable | grep -v text | grep -v ELF | grep -v Mach-O \
